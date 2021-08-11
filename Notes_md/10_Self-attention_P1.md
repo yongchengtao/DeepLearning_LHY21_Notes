@@ -28,7 +28,7 @@ CNN以后,我们要讲另外一个常见的Network架构,这个架构叫做Self-
 
 你就开一个很长很长的向量,这个向量的长度跟世界上存在的词汇的数目是一样多的,每一个维度对应到一个词汇,Apple就是100,Bag就是010,Cat就是001,以此类推
 
-但是这样子的表示方法有一个非常严重的问题,它假设所有的**词汇彼此之间都是没有关係**的,从这个向量裡面你看不到：Cat跟Dog都是动物所以他们比较接近,Cat跟Apple一个动物一个植物,所以他们比较不相像。这个向量裡面,没有任何语义的资讯
+但是这样子的表示方法有一个**非常严重的问题,它假设所有的词汇彼此之间都是没有关係的,**从这个向量裡面你看不到：Cat跟Dog都是动物所以他们比较接近,Cat跟Apple一个动物一个植物,所以他们比较不相像。这个向量裡面,没有任何语义的资讯
 
 有另外一个方法叫做==Word Embedding==
 
@@ -151,7 +151,7 @@ Word Embedding，如果你有兴趣的话,可以看一下以下的录影https://
 
 然后Fully-Connected的Network就会给我们输出,那现在看看,你要做的是Regression还是Classification,產生正确的对应的输出,就结束了,
 
-那这麼做显然有**非常大的瑕疵**,假设今天是,词性标记的问题,你给机器一个句子,I saw a saw,对Fully-Connected Network来说,**后面这一个saw跟前面这个saw完全一模一样**,它们是同一个词汇啊
+**缺点：那这麼做显然有非常大的瑕疵,假设今天是,词性标记的问题,你给机器一个句子,I saw a saw,对Fully-Connected Network来说,后面这一个saw跟前面这个saw完全一模一样,它们是同一个词汇啊**
 
 既然Fully-Connected的Network**输入同一个词汇,它没有理由输出不同的东西**
 
@@ -234,7 +234,7 @@ Transformer我们今天还不会讲到,但我们之后会讲到,Transformer裡�
 
 Self-Attention的Input,它就是一串的Vector,那**这个Vector可能是你整个Network的Input,它也可能是某个Hidden Layer的Output**,所以我们这边不是用$x$来表示它,
 
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404202435331.png" alt="image-20210404202435331" style="zoom: 33%;" />
+<img src="assets/image-20210404202435331.png"  />
 
 我们用$a$来表示它，代表它有可能是前面已经做过一些处理,它是某个Hidden Layer的Output,那Input一排a这个向量以后,Self-Attention要Output另外一排b这个向量
 
@@ -244,13 +244,13 @@ Self-Attention的Input,它就是一串的Vector,那**这个Vector可能是你整
 
 这里有一个**特别的机制**,**这个机制是根据$a^1$这个向量,找出整个很长的sequence裡面,到底哪些部分是重要的,哪些部分跟判断$a^1$是哪一个label是有关係的,哪些部分是我们要决定$a^1$的class,决定$a^1$的regression数值的时候,所需要用到的资讯**
 
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404202942477.png" alt="image-20210404202942477" style="zoom: 33%;" />
+<img src="assets/image-20210404202942477.png"/>
 
 **每一个向量跟$a^1$的关联的程度,用一个数值叫α来表示**
 
 这个self-attention的module,**怎麼自动决定两个向量之间的关联性**呢,你给它两个向量$a^1$跟$a^4$,它怎麼决定$a^1$跟$a^4$有多相关,然后给它一个数值α呢,那这边呢你就需要一个**计算attention的模组**
 
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404204458431.png" alt="image-20210404204458431" style="zoom: 33%;" />
+<img src="assets/image-20210404204458431.png"/>
 
 这个计算attention的模组,就是拿**两个向量作為输入**,然后它就直接输出α那个数值,
 
@@ -268,13 +268,11 @@ Self-Attention的Input,它就是一串的Vector,那**这个Vector可能是你整
 
 总之有非常多不同的方法,可以计算Attention,可以计算这个α的数值,可以计算这个关联的程度
 
-但是在接下来的讨论裡面,我们都**只用左边这个方法**,这也是今日最常用的方法,也**是用在Transformer裡面的方法**
-
-
+但是在接下来的讨论裡面,我们都**只用左边这个方法**,这也是今日最常用的方法,也**是用在Transformer里面的方法**
 
 那你就要把这边的$a^1$去跟这边的$a^2 a^3 a^4$,分别都去计算他们之间的关联性,也就是计算他们之间的α
 
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404211656032.png" alt="image-20210404211656032" style="zoom: 50%;" />
+<img src="assets/image-20210404211656032.png"/>
 
 你把$a^1$乘上$W^q $得到$q^1$,那这个q有一个名字,我们叫做==Query==,它就像是你搜寻引擎的时候,去搜寻相关文章的问题,就像搜寻相关文章的关键字,所以这边叫做Query
 
